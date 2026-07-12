@@ -10,6 +10,6 @@
 # Visual Studio workspace state (local IDE cache, not part of the project)
 /.vs/
 
-# tmp/ is a scratch folder, not used by app code — keep only the .htaccess
-/tmp/*
-!/tmp/.htaccess
+# tmp/ is a local scratch/reference folder (e.g. design mockups),
+# not used by app code and not part of the deployed site
+/tmp/
