@@ -1,55 +1,15 @@
-# Prerequisites
-*.d
+/config/config.php
+/public/uploads/*
+!/public/uploads/.gitkeep
+!/public/uploads/articles/
+/public/uploads/articles/*
+!/public/uploads/articles/.gitkeep
+/vendor/
+.env
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Visual Studio workspace state (local IDE cache, not part of the project)
+/.vs/
 
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
-# debug information files
-*.dwo
+# tmp/ is a scratch folder, not used by app code — keep only the .htaccess
+/tmp/*
+!/tmp/.htaccess
