@@ -1,0 +1,12 @@
+# Захист про всяк випадок, якщо document root хостингу колись вкаже
+# на корінь проєкту, а не на теку public/ (штатний варіант, див. README.md).
+# Забороняє прямий доступ до внутрішньої документації та службових файлів,
+# що лежать у корені репозиторію (POSIBNYK.md, beegenius-plan.md тощо).
+
+<FilesMatch "\.(md|sql)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
