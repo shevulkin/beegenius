@@ -117,6 +117,6 @@ try {
 } catch (Throwable $e) {
     error_log('[articles_save] ' . $e->getMessage());
     http_response_code(500);
-    echo 'Не вдалося зберегти статтю: ' . htmlspecialchars($e->getMessage());
+    echo 'Не вдалося зберегти статтю. Спробуйте ще раз або зверніться до розробника.';
     exit;
 }

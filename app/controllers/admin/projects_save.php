@@ -80,6 +80,6 @@ try {
 } catch (Throwable $e) {
     error_log('[projects_save] ' . $e->getMessage());
     http_response_code(500);
-    echo 'Не вдалося зберегти проєкт: ' . htmlspecialchars($e->getMessage());
+    echo 'Не вдалося зберегти проєкт. Спробуйте ще раз або зверніться до розробника.';
     exit;
 }
