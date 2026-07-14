@@ -1,5 +1,5 @@
 <?php
-// Видалення фото з медіатеки (/public/uploads/articles) — лише якщо воно
+// Видалення фото з медіатеки (uploads/articles) — лише якщо воно
 // зараз ніде не використовується (обкладинки статей/проєктів, скріншот
 // відгуку, хіро-фото головної).
 require_admin();
@@ -58,8 +58,8 @@ try {
         exit;
     }
 
-    $fullPath = dirname(__DIR__, 3) . '/public/uploads/articles/' . $name;
-    $realDir = realpath(dirname(__DIR__, 3) . '/public/uploads/articles');
+    $fullPath = UPLOADS_DIR . '/' . $name;
+    $realDir = realpath(UPLOADS_DIR);
     $realFile = realpath($fullPath);
 
     // Додаткова перевірка: реальний шлях файлу справді лежить у теці uploads/articles.

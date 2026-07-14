@@ -72,7 +72,7 @@ try {
         }
         $ext = $allowedTypes[$imageInfo[2]];
         $filename = bin2hex(random_bytes(16)) . '.' . $ext;
-        $uploadDir = dirname(__DIR__, 3) . '/public/uploads/articles';
+        $uploadDir = UPLOADS_DIR;
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
         move_uploaded_file($file['tmp_name'], $uploadDir . '/' . $filename);
         $coverImage = '/uploads/articles/' . $filename;

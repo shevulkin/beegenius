@@ -1,11 +1,11 @@
 <?php
-// Список уже завантажених фото з /public/uploads/articles — для вибору
+// Список уже завантажених фото з uploads/articles — для вибору
 // в редакторі статті замість повторного завантаження того самого файлу.
 require_admin();
 
 header('Content-Type: application/json; charset=utf-8');
 
-$dir = dirname(__DIR__, 3) . '/public/uploads/articles';
+$dir = UPLOADS_DIR;
 $images = [];
 
 if (is_dir($dir)) {

@@ -30,6 +30,12 @@ ini_set('log_errors', '1');
 // public/ всередині нього) — тоді app/ опиняється поруч із цим файлом, а не
 // на рівень вище.
 $root = is_dir(dirname(__DIR__) . '/app') ? dirname(__DIR__) : __DIR__;
+
+// Фізична тека завантажених фото завжди лежить поруч із цим файлом (public/index.php) —
+// незалежно від того, вкладена структура (локально) чи плаский макет (прод), __DIR__ тут
+// це справжній document root, з якого напряму сервер віддає /uploads/... як статичний файл.
+define('UPLOADS_DIR', __DIR__ . '/uploads/articles');
+
 require $root . '/app/lib/db.php';
 require $root . '/app/lib/helpers.php';
 require $root . '/app/lib/auth.php';
