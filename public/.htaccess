@@ -1,3 +1,11 @@
+# Примусовий редірект на HTTPS (додано за рекомендацією підтримки хостингу —
+# SSL-сертифікат встановлено, але без цього правила http:// лишався доступним).
+# Не діє на localhost — там SSL не налаштований для локальної розробки.
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^localhost$
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 Options -Indexes
 
 <IfModule php_module>
