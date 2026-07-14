@@ -150,6 +150,10 @@ switch (true) {
         require $root . '/app/controllers/admin/media_list.php';
         break;
 
+    case $path === '/admin/media/delete':
+        require $root . '/app/controllers/admin/media_delete.php';
+        break;
+
     case $path === '/admin/articles/save':
         require $root . '/app/controllers/admin/articles_save.php';
         break;

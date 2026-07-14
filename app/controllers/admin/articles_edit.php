@@ -216,14 +216,39 @@ function loadMediaGrid() {
     .then(function (data) {
       grid.innerHTML = '';
       (data.images || []).forEach(function (img) {
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'position:relative';
         var el = document.createElement('img');
         el.src = img.url;
-        el.style.cssText = 'width:100%;height:90px;object-fit:cover;border-radius:8px;cursor:pointer;border:1.5px solid var(--line)';
+        el.style.cssText = 'width:100%;height:90px;object-fit:cover;border-radius:8px;cursor:pointer;border:1.5px solid var(--line);display:block';
         el.onclick = function () {
           if (mediaPickerCallback) mediaPickerCallback(img.url);
           closeMediaPicker();
         };
-        grid.appendChild(el);
+        var del = document.createElement('button');
+        del.type = 'button';
+        del.textContent = '✕';
+        del.title = 'Видалити фото';
+        del.style.cssText = 'position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,0.6);color:#fff;font-size:12px;cursor:pointer;line-height:1';
+        del.onclick = function (e) {
+          e.stopPropagation();
+          if (!confirm('Видалити це фото назавжди?')) return;
+          var fd = new FormData();
+          fd.append('name', img.name);
+          fd.append('csrf_token', csrfToken);
+          fetch('<?= BASE_PATH ?>/admin/media/delete', { method: 'POST', body: fd })
+            .then(function (r) { return r.json(); })
+            .then(function (res) {
+              if (res.ok) {
+                loadMediaGrid();
+              } else {
+                alert(res.error || 'Не вдалося видалити фото');
+              }
+            });
+        };
+        wrap.appendChild(el);
+        wrap.appendChild(del);
+        grid.appendChild(wrap);
       });
       if (!data.images || !data.images.length) {
         grid.innerHTML = '<p style="grid-column:1/-1;color:var(--ink-soft)">Ще немає завантажених фото — завантажте перше вище.</p>';
