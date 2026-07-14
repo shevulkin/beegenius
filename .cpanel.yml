@@ -6,3 +6,4 @@ deployment:
     - /bin/cp -R config $DEPLOYPATH
     - /bin/cp -R db $DEPLOYPATH
     - /bin/cp -R public $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH

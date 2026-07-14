@@ -10,3 +10,9 @@
 <FilesMatch "^\.">
     Require all denied
 </FilesMatch>
+
+# Забороняємо лістинг файлів у корені (якщо тут немає index-файлу).
+Options -Indexes
+
+# Сайт фактично живе в public/ — гола адреса домену веде туди.
+RedirectMatch ^/$ /public/
