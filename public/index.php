@@ -23,7 +23,13 @@ define('IS_LOCAL', $isLocal);
 ini_set('display_errors', $isLocal ? '1' : '0'); // на проді помилки не показуємо (безпека), пишемо в лог
 ini_set('log_errors', '1');
 
-$root = dirname(__DIR__);
+// Зазвичай app/ лежить на рівень вище public/ (локально через XAMPP і за
+// стандартної схеми деплою document root -> public/). Але на деяких shared-
+// хостингах, де document root не можна змінити для головного домену, весь
+// вміст public/ копіюється прямо в корінь сайту (поруч з app/, а не в теці
+// public/ всередині нього) — тоді app/ опиняється поруч із цим файлом, а не
+// на рівень вище.
+$root = is_dir(dirname(__DIR__) . '/app') ? dirname(__DIR__) : __DIR__;
 require $root . '/app/lib/db.php';
 require $root . '/app/lib/helpers.php';
 require $root . '/app/lib/auth.php';

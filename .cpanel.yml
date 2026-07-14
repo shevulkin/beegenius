@@ -2,9 +2,8 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/beegeniu/public_html/
-    - mkdir -p $DEPLOYPATH/app $DEPLOYPATH/config $DEPLOYPATH/db $DEPLOYPATH/public
+    - mkdir -p $DEPLOYPATH/app $DEPLOYPATH/config $DEPLOYPATH/db
     - /bin/cp -R app/. $DEPLOYPATH/app/
     - /bin/cp -R config/. $DEPLOYPATH/config/
     - /bin/cp -R db/. $DEPLOYPATH/db/
-    - /bin/cp -R public/. $DEPLOYPATH/public/
-    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp -R public/. $DEPLOYPATH
