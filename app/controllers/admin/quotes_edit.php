@@ -88,6 +88,13 @@ function openMediaPicker(onSelect) {
 function closeMediaPicker() {
   document.getElementById('media-picker-backdrop').style.display = 'none';
 }
+function formatFileSize(bytes) {
+  if (!bytes && bytes !== 0) return '';
+  if (bytes < 1024) return bytes + ' Б';
+  if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + ' КБ';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' МБ';
+}
+
 function loadMediaGrid() {
   var grid = document.getElementById('media-grid');
   grid.innerHTML = 'Завантаження…';
@@ -100,11 +107,18 @@ function loadMediaGrid() {
         wrap.style.cssText = 'position:relative';
         var el = document.createElement('img');
         el.src = img.url;
-        el.style.cssText = 'width:100%;height:90px;object-fit:cover;border-radius:8px;cursor:pointer;border:1.5px solid var(--line);display:block';
+        el.style.cssText = 'width:100%;height:90px;object-fit:cover;border-radius:8px 8px 0 0;cursor:pointer;border:1.5px solid var(--line);border-bottom:none;display:block';
         el.onclick = function () {
           if (mediaPickerCallback) mediaPickerCallback(img.url);
           closeMediaPicker();
         };
+        var caption = document.createElement('div');
+        caption.textContent = formatFileSize(img.size);
+        caption.title = img.name;
+        caption.style.cssText = 'font-size:10.5px;color:var(--ink-soft);padding:4px 6px;border:1.5px solid var(--line);border-top:none;border-radius:0 0 8px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer';
+        caption.onclick = el.onclick;
+        wrap.appendChild(el);
+        wrap.appendChild(caption);
         var del = document.createElement('button');
         del.type = 'button';
         del.textContent = '✕';
@@ -126,7 +140,6 @@ function loadMediaGrid() {
               }
             });
         };
-        wrap.appendChild(el);
         wrap.appendChild(del);
         grid.appendChild(wrap);
       });

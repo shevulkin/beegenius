@@ -18,6 +18,7 @@ if (is_dir($dir)) {
         $images[] = [
             'url' => BASE_PATH . '/uploads/articles/' . $f,
             'name' => $f,
+            'size' => filesize("$dir/$f"),
         ];
     }
 }
