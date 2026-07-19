@@ -7,25 +7,30 @@ $fields = [
     'home_subtitle' => 'Підзаголовок',
     'home_about_title' => 'Заголовок блоку "Чим я займаюся"',
     'home_about_text' => 'Текст блоку "Чим я займаюся"',
+    'home_bleed_caption' => 'Підпис на фото-стрічці',
 ];
-$textareas = ['home_subtitle', 'home_about_text'];
+$textareas = ['home_subtitle', 'home_about_text', 'home_bleed_caption'];
 $hints = [
     'home_kicker' => 'Маленький напис над заголовком у верхньому банері (наприклад "Проєкт «З Бджолами по Життю»").',
     'home_title' => 'Головний заголовок (H1) на верхньому банері.',
     'home_subtitle' => 'Короткий опис під заголовком.',
     'home_about_title' => 'Заголовок секції з картками нижче ("Чим я займаюся").',
     'home_about_text' => 'Опис під заголовком цієї секції.',
+    'home_bleed_caption' => 'Цитата поверх широкого фото між банером і блоком "Чим я займаюся".',
 ];
 
 $values = array_fill_keys(array_keys($fields), '');
 $heroImage = '';
+$bleedImage = '';
 $activities = [];
 try {
     $pdo = db_connect();
-    $rows = $pdo->query("SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('" . implode("','", array_keys($fields)) . "', 'home_hero_image')")->fetchAll();
+    $rows = $pdo->query("SELECT setting_key, setting_value FROM site_settings WHERE setting_key IN ('" . implode("','", array_keys($fields)) . "', 'home_hero_image', 'home_bleed_image')")->fetchAll();
     foreach ($rows as $r) {
         if ($r['setting_key'] === 'home_hero_image') {
             $heroImage = $r['setting_value'];
+        } elseif ($r['setting_key'] === 'home_bleed_image') {
+            $bleedImage = $r['setting_value'];
         } elseif (array_key_exists($r['setting_key'], $values)) {
             $values[$r['setting_key']] = $r['setting_value'];
         }
@@ -57,6 +62,18 @@ require __DIR__ . '/../../views/layout/header.php';
       </div>
       <button type="button" class="btn btn-ghost" id="pick-hero-image-btn">Обрати фото</button>
       <p class="field-hint">Велике фото праворуч у верхньому банері головної сторінки.</p>
+    </div>
+
+    <div class="field">
+      <label>Фото-стрічка (широке фото з цитатою)</label>
+      <input type="hidden" name="home_bleed_image" id="bleed-image-current" value="<?= htmlspecialchars($bleedImage) ?>">
+      <div id="bleed-image-preview" style="margin-bottom:10px">
+        <?php if (!empty($bleedImage)): ?>
+          <img src="<?= htmlspecialchars(BASE_PATH . $bleedImage) ?>" style="max-width:220px;border-radius:8px">
+        <?php endif; ?>
+      </div>
+      <button type="button" class="btn btn-ghost" id="pick-bleed-image-btn">Обрати фото</button>
+      <p class="field-hint">Широке фото між верхнім банером і блоком "Чим я займаюся" — підпис на ньому редагується нижче.</p>
     </div>
 
     <?php foreach ($fields as $key => $label): ?>
@@ -199,6 +216,18 @@ document.getElementById('pick-hero-image-btn').addEventListener('click', functio
   openMediaPicker(function (url) {
     document.getElementById('hero-image-current').value = url.replace('<?= BASE_PATH ?>', '');
     var preview = document.getElementById('hero-image-preview');
+    var img = document.createElement('img');
+    img.src = url;
+    img.style.cssText = 'max-width:220px;border-radius:8px';
+    preview.innerHTML = '';
+    preview.appendChild(img);
+  });
+});
+
+document.getElementById('pick-bleed-image-btn').addEventListener('click', function () {
+  openMediaPicker(function (url) {
+    document.getElementById('bleed-image-current').value = url.replace('<?= BASE_PATH ?>', '');
+    var preview = document.getElementById('bleed-image-preview');
     var img = document.createElement('img');
     img.src = url;
     img.style.cssText = 'max-width:220px;border-radius:8px';

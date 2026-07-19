@@ -59,8 +59,12 @@ require __DIR__ . '/../../views/layout/header.php';
 
     <div class="field">
       <label>Число-результат (необов'язково)</label>
-      <input type="text" name="counter_value" value="<?= htmlspecialchars((string)$project['counter_value']) ?>" style="max-width:160px" placeholder="наприклад: 18">
-      <p class="field-hint">Велике число-лічильник на сторінці проєкту (наприклад, кількість переданих сімей). Якщо порожнє — блок з числом не показується.</p>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button type="button" class="icon-btn" id="counter-value-dec">−</button>
+        <input type="text" name="counter_value" id="counter-value-input" value="<?= htmlspecialchars((string)$project['counter_value']) ?>" style="max-width:160px;text-align:center" placeholder="наприклад: 18">
+        <button type="button" class="icon-btn" id="counter-value-inc">+</button>
+      </div>
+      <p class="field-hint">Велике число-лічильник на сторінці проєкту (наприклад, кількість переданих сімей). Якщо порожнє — блок з числом не показується. Кнопки +/− швидко додають чи віднімають 1.</p>
     </div>
 
     <div class="field">
@@ -208,6 +212,15 @@ document.getElementById('pick-cover-btn').addEventListener('click', function () 
     preview.appendChild(img);
   });
 });
+
+function adjustCounterValue(delta) {
+  var input = document.getElementById('counter-value-input');
+  var current = parseInt(input.value, 10);
+  if (isNaN(current)) current = 0;
+  input.value = Math.max(0, current + delta);
+}
+document.getElementById('counter-value-inc').addEventListener('click', function () { adjustCounterValue(1); });
+document.getElementById('counter-value-dec').addEventListener('click', function () { adjustCounterValue(-1); });
 </script>
 
 <?php require __DIR__ . '/../../views/layout/footer.php'; ?>

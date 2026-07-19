@@ -14,11 +14,17 @@ $allowedKeys = [
     'home_subtitle',
     'home_about_title',
     'home_about_text',
+    'home_bleed_caption',
 ];
 
 $heroImage = trim($_POST['home_hero_image'] ?? '');
 if ($heroImage !== '' && !preg_match('#^/(uploads|assets)/#i', $heroImage)) {
     $heroImage = '';
+}
+
+$bleedImage = trim($_POST['home_bleed_image'] ?? '');
+if ($bleedImage !== '' && !preg_match('#^/(uploads|assets)/#i', $bleedImage)) {
+    $bleedImage = '';
 }
 
 try {
@@ -32,6 +38,7 @@ try {
         $stmt->execute([$key, $value]);
     }
     $stmt->execute(['home_hero_image', $heroImage]);
+    $stmt->execute(['home_bleed_image', $bleedImage]);
     header('Location: ' . BASE_PATH . '/admin');
     exit;
 } catch (Throwable $e) {

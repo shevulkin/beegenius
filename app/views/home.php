@@ -10,6 +10,8 @@ $home = $home ?? [
     'aboutText' => 'Кілька років тому бджоли з хобі перетворилися на спосіб життя. Я веду господарство в Альпійських вуликах, займаюся апітерапією та роблю вироби з воску. А ще допомагаю новачкам почати власну пасіку в межах проєкту «З Бджолами по Життю».',
 ];
 $heroImage = !empty($home['heroImage']) ? $home['heroImage'] : BASE_PATH . '/assets/img/279fad5b-5ed2-47ff-8613-fbf8212c6d3a.jpg';
+$bleedImage = !empty($home['bleedImage']) ? $home['bleedImage'] : BASE_PATH . '/assets/img/6db72486-be10-4522-9b75-689533047c40.jpg';
+$bleedCaption = !empty($home['bleedCaption']) ? $home['bleedCaption'] : '«Кожна сім\'я тримається одна одної — так само, як наша спільнота пасічників»';
 $activities = $activities ?? [
     ['n' => '01', 'title' => '«З Бджолами по Життю»', 'text' => 'Даю новачкам можливість безкоштовно отримати бджолину сім\'ю і почати власну пасіку.'],
     ['n' => '02', 'title' => 'Альпійські вулики', 'text' => 'Веду господарство за системою Альпійських вуликів — компактно і зручно для бджіл.'],
@@ -121,8 +123,8 @@ include __DIR__ . '/layout/header.php';
 <?php endif; ?>
 
 <div class="bleed-strip">
-  <img src="<?= BASE_PATH ?>/assets/img/6db72486-be10-4522-9b75-689533047c40.jpg" alt="Бджолиний рій">
-  <span class="bleed-cap">«Кожна сім'я тримається одна одної — так само, як наша спільнота пасічників»</span>
+  <img src="<?= htmlspecialchars($bleedImage) ?>" alt="Бджолиний рій">
+  <span class="bleed-cap"><?= htmlspecialchars($bleedCaption) ?></span>
 </div>
 
 <section class="section">

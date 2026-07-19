@@ -23,6 +23,8 @@ try {
             'aboutTitle' => $settings['home_about_title'] ?? '',
             'aboutText' => $settings['home_about_text'] ?? '',
             'heroImage' => !empty($settings['home_hero_image']) ? BASE_PATH . $settings['home_hero_image'] : '',
+            'bleedImage' => !empty($settings['home_bleed_image']) ? BASE_PATH . $settings['home_bleed_image'] : '',
+            'bleedCaption' => $settings['home_bleed_caption'] ?? '',
         ];
     }
 
