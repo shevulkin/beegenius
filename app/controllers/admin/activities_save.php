@@ -22,12 +22,15 @@ try {
     if ($id) {
         $stmt = $pdo->prepare('UPDATE activities SET title=?, text=? WHERE id=?');
         $stmt->execute([$title, $text, $id]);
+        $savedId = $id;
     } else {
         $maxOrder = (int)$pdo->query('SELECT COALESCE(MAX(sort_order),0) FROM activities')->fetchColumn();
         $stmt = $pdo->prepare('INSERT INTO activities (sort_order, title, text) VALUES (?, ?, ?)');
         $stmt->execute([$maxOrder + 1, $title, $text]);
+        $savedId = (int)$pdo->lastInsertId();
     }
-    header('Location: ' . BASE_PATH . '/admin/home');
+    $_SESSION['flash_saved'] = true;
+    header('Location: ' . BASE_PATH . '/admin/activities/edit/' . $savedId);
     exit;
 } catch (Throwable $e) {
     error_log('[activities_save] ' . $e->getMessage());

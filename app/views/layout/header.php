@@ -97,6 +97,11 @@ $__seoNoindex = $metaNoindex ?? (($active ?? '') === 'admin');
     <div class="disclaimer" style="max-width:1180px;margin:16px auto 0;text-align:center">Сесію завершено через тривалу бездіяльність. Увійдіть знову.</div>
   <?php endif; ?>
 
+  <?php if (!empty($_SESSION['flash_saved'])): ?>
+    <?php unset($_SESSION['flash_saved']); ?>
+    <div class="flash-success" style="max-width:1180px;margin:16px auto 0;text-align:center">✓ Збережено</div>
+  <?php endif; ?>
+
   <?php $c = $contact ?? []; ?>
   <div class="contact-modal-backdrop" id="contact-modal-backdrop" style="display:none" onclick="closeContactModal()">
     <div class="contact-modal" onclick="event.stopPropagation()">

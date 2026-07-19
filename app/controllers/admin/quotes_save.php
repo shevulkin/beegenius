@@ -28,12 +28,15 @@ try {
     if ($id) {
         $stmt = $pdo->prepare('UPDATE quotes SET quote_text=?, quote_year=?, quote_image=? WHERE id=?');
         $stmt->execute([$text, $year, $image ?: null, $id]);
+        $savedId = $id;
     } else {
         $maxOrder = (int)$pdo->query('SELECT COALESCE(MAX(sort_order),0) FROM quotes')->fetchColumn();
         $stmt = $pdo->prepare('INSERT INTO quotes (sort_order, quote_text, quote_year, quote_image) VALUES (?, ?, ?, ?)');
         $stmt->execute([$maxOrder + 1, $text, $year, $image ?: null]);
+        $savedId = (int)$pdo->lastInsertId();
     }
-    header('Location: ' . BASE_PATH . '/admin');
+    $_SESSION['flash_saved'] = true;
+    header('Location: ' . BASE_PATH . '/admin/quotes/edit/' . $savedId);
     exit;
 } catch (Throwable $e) {
     error_log('[quotes_save] ' . $e->getMessage());

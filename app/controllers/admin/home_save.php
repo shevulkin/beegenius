@@ -39,7 +39,8 @@ try {
     }
     $stmt->execute(['home_hero_image', $heroImage]);
     $stmt->execute(['home_bleed_image', $bleedImage]);
-    header('Location: ' . BASE_PATH . '/admin');
+    $_SESSION['flash_saved'] = true;
+    header('Location: ' . BASE_PATH . '/admin/home');
     exit;
 } catch (Throwable $e) {
     error_log('[home_save] ' . $e->getMessage());
