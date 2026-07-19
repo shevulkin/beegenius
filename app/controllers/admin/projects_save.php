@@ -56,6 +56,7 @@ try {
              WHERE id = ?'
         );
         $stmt->execute([$title, $subtitle, $counterValue ?: null, $counterLabel ?: null, $showOnHome, $description, $ctaNote, $coverImage ?: null, $status, $id]);
+        $savedId = $id;
     } else {
         $baseSlug = project_slugify($title);
         $slug = $baseSlug;
@@ -73,9 +74,11 @@ try {
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );
         $stmt->execute([$maxOrder + 1, $title, $slug, $subtitle, $counterValue ?: null, $counterLabel ?: null, $showOnHome, $description, $ctaNote, $coverImage ?: null, $status]);
+        $savedId = (int)$pdo->lastInsertId();
     }
 
-    header('Location: ' . BASE_PATH . '/admin');
+    $_SESSION['flash_saved'] = true;
+    header('Location: ' . BASE_PATH . '/admin/projects/edit/' . $savedId);
     exit;
 } catch (Throwable $e) {
     error_log('[projects_save] ' . $e->getMessage());

@@ -32,7 +32,8 @@ try {
         }
         $stmt->execute([$key, $value]);
     }
-    header('Location: ' . BASE_PATH . '/admin');
+    $_SESSION['flash_saved'] = true;
+    header('Location: ' . BASE_PATH . '/admin/settings');
     exit;
 } catch (Throwable $e) {
     error_log('[settings_save] ' . $e->getMessage());

@@ -91,6 +91,7 @@ try {
         );
         $stmt->execute([$type, $title, $excerpt, $body, $coverImage, $status, $isBanner, $bannerFrom, $bannerUntil, $status, $id]);
         sync_article_tags($pdo, $id, $tagsInput);
+        $savedId = $id;
     } else {
         // Нова стаття.
         $baseSlug = slugify($title);
@@ -109,10 +110,12 @@ try {
         );
         $publishedAt = $status === 'published' ? date('Y-m-d H:i:s') : null;
         $stmt->execute([$type, $title, $slug, $excerpt, $body, $coverImage, $status, $isBanner, $bannerFrom, $bannerUntil, $publishedAt]);
-        sync_article_tags($pdo, (int)$pdo->lastInsertId(), $tagsInput);
+        $savedId = (int)$pdo->lastInsertId();
+        sync_article_tags($pdo, $savedId, $tagsInput);
     }
 
-    header('Location: ' . BASE_PATH . '/admin');
+    $_SESSION['flash_saved'] = true;
+    header('Location: ' . BASE_PATH . '/admin/articles/edit/' . $savedId);
     exit;
 } catch (Throwable $e) {
     error_log('[articles_save] ' . $e->getMessage());
