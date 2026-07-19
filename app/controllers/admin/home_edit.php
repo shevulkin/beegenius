@@ -49,7 +49,7 @@ require __DIR__ . '/../../views/layout/header.php';
   <h2 class="serif">Головна сторінка</h2>
   <p style="color:var(--ink-soft);font-size:14.5px;margin:0 0 24px">Тексти верхнього банера і блоку "Чим я займаюся". Лічильник підтягується автоматично з проєкту, позначеного прапорцем "Показувати цей лічильник на головній сторінці" (розділ <a href="<?= BASE_PATH ?>/admin/projects">Проєкти</a>). Відгуки — у розділі "Відгуки", банер-оголошення — прапорцем "Показувати банером" у формі оголошення.</p>
 
-  <form method="post" action="<?= BASE_PATH ?>/admin/home/save" id="home-form">
+  <form method="post" action="<?= BASE_PATH ?>/admin/home/save" id="home-form" data-track-changes="1">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
 
     <div class="field">
@@ -93,7 +93,7 @@ require __DIR__ . '/../../views/layout/header.php';
     </div>
   </form>
 
-  <div style="margin-top:48px">
+  <div style="margin-top:48px;padding-top:40px;border-top:1.5px solid var(--line)">
     <div style="display:flex;justify-content:space-between;align-items:center;margin:0 0 8px">
       <h3 class="serif" style="margin:0">Картки "Чим я займаюся"</h3>
       <a class="btn btn-primary" href="<?= BASE_PATH ?>/admin/activities/new">+ Додати картку</a>
@@ -214,7 +214,9 @@ document.getElementById('media-upload-input').addEventListener('change', functio
 
 document.getElementById('pick-hero-image-btn').addEventListener('click', function () {
   openMediaPicker(function (url) {
-    document.getElementById('hero-image-current').value = url.replace('<?= BASE_PATH ?>', '');
+    var input = document.getElementById('hero-image-current');
+    input.value = url.replace('<?= BASE_PATH ?>', '');
+    input.dispatchEvent(new Event('change', { bubbles: true }));
     var preview = document.getElementById('hero-image-preview');
     var img = document.createElement('img');
     img.src = url;
@@ -226,7 +228,9 @@ document.getElementById('pick-hero-image-btn').addEventListener('click', functio
 
 document.getElementById('pick-bleed-image-btn').addEventListener('click', function () {
   openMediaPicker(function (url) {
-    document.getElementById('bleed-image-current').value = url.replace('<?= BASE_PATH ?>', '');
+    var input = document.getElementById('bleed-image-current');
+    input.value = url.replace('<?= BASE_PATH ?>', '');
+    input.dispatchEvent(new Event('change', { bubbles: true }));
     var preview = document.getElementById('bleed-image-preview');
     var img = document.createElement('img');
     img.src = url;

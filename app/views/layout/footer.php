@@ -51,6 +51,36 @@ function closeContactModal() {
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeContactModal();
 });
+
+(function () {
+  var forms = document.querySelectorAll('form[data-track-changes]');
+  if (!forms.length) return;
+  var dirty = false;
+
+  forms.forEach(function (form) {
+    var btnrow = form.querySelector('.btnrow');
+    var badge = null;
+    if (btnrow) {
+      badge = document.createElement('span');
+      badge.textContent = '● Є незбережені зміни';
+      badge.style.cssText = 'display:none;align-items:center;color:var(--terracotta);font-size:13px;font-weight:600;margin-left:4px';
+      btnrow.appendChild(badge);
+    }
+    function markDirty() {
+      dirty = true;
+      if (badge) badge.style.display = 'inline-flex';
+    }
+    form.addEventListener('input', markDirty);
+    form.addEventListener('change', markDirty);
+    form.addEventListener('submit', function () { dirty = false; });
+  });
+
+  window.addEventListener('beforeunload', function (e) {
+    if (!dirty) return;
+    e.preventDefault();
+    e.returnValue = '';
+  });
+})();
 </script>
 </body>
 </html>

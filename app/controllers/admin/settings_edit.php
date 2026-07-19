@@ -40,7 +40,7 @@ require __DIR__ . '/../../views/layout/header.php';
   <h2 class="serif">Контакти</h2>
   <p style="color:var(--ink-soft);font-size:14.5px;margin:0 0 24px">Ці дані показуються у модальному вікні "Зв'язатися" на сайті. Залиште поле порожнім, щоб цей спосіб зв'язку не показувався.</p>
 
-  <form method="post" action="<?= BASE_PATH ?>/admin/settings/save">
+  <form method="post" action="<?= BASE_PATH ?>/admin/settings/save" data-track-changes="1">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
     <?php foreach ($fields as $key => $label): ?>
       <div class="field">

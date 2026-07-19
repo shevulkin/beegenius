@@ -152,7 +152,7 @@ include __DIR__ . '/layout/header.php';
 <?php endif; ?>
 
 <section class="section">
-  <div class="section-head">
+  <div class="section-head about-centered">
     <span class="kicker">Відгуки</span>
     <h2 class="serif">Що кажуть учасники проєкту</h2>
   </div>
@@ -170,7 +170,7 @@ include __DIR__ . '/layout/header.php';
 </section>
 
 <section class="section section-alt">
-  <div class="section-head">
+  <div class="section-head about-centered">
     <span class="kicker">Блог</span>
     <h2 class="serif">Останні записи</h2>
   </div>

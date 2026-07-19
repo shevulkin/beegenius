@@ -25,7 +25,7 @@ require __DIR__ . '/../../views/layout/header.php';
   <a class="back-link" href="<?= BASE_PATH ?>/admin/home">← До головної сторінки</a>
   <h2 class="serif"><?= $isNew ? 'Нова картка' : 'Редагування картки' ?></h2>
 
-  <form method="post" action="<?= BASE_PATH ?>/admin/activities/save">
+  <form method="post" action="<?= BASE_PATH ?>/admin/activities/save" data-track-changes="1">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
     <?php if (!$isNew): ?><input type="hidden" name="id" value="<?= (int)$activity['id'] ?>"><?php endif; ?>
 

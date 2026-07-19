@@ -25,7 +25,7 @@ require __DIR__ . '/../../views/layout/header.php';
   <a class="back-link" href="<?= BASE_PATH ?>/admin">← До панелі</a>
   <h2 class="serif"><?= $isNew ? 'Новий відгук' : 'Редагування відгуку' ?></h2>
 
-  <form method="post" action="<?= BASE_PATH ?>/admin/quotes/save" id="quote-form">
+  <form method="post" action="<?= BASE_PATH ?>/admin/quotes/save" id="quote-form" data-track-changes="1">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token()) ?>">
     <?php if (!$isNew): ?><input type="hidden" name="id" value="<?= (int)$quote['id'] ?>"><?php endif; ?>
 
@@ -157,7 +157,9 @@ document.getElementById('media-upload-input').addEventListener('change', functio
 
 document.getElementById('pick-quote-image-btn').addEventListener('click', function () {
   openMediaPicker(function (url) {
-    document.getElementById('quote-image-current').value = url.replace('<?= BASE_PATH ?>', '');
+    var input = document.getElementById('quote-image-current');
+    input.value = url.replace('<?= BASE_PATH ?>', '');
+    input.dispatchEvent(new Event('change', { bubbles: true }));
     var preview = document.getElementById('quote-image-preview');
     var img = document.createElement('img');
     img.src = url;
@@ -170,7 +172,9 @@ document.getElementById('pick-quote-image-btn').addEventListener('click', functi
 var removeBtn = document.getElementById('remove-quote-image-btn');
 if (removeBtn) {
   removeBtn.addEventListener('click', function () {
-    document.getElementById('quote-image-current').value = '';
+    var input = document.getElementById('quote-image-current');
+    input.value = '';
+    input.dispatchEvent(new Event('change', { bubbles: true }));
     document.getElementById('quote-image-preview').innerHTML = '';
   });
 }
