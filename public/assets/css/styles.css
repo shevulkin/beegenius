@@ -409,6 +409,8 @@ a:hover{color:var(--amber-deep)}
 .counter-band{background:var(--forest);color:var(--forest-text);padding:80px 56px;text-align:center}
 .counter-num{font-size:96px;font-weight:700;font-family:Petrona,serif;line-height:1;color:var(--amber)}
 .counter-label{font-size:19px;margin:14px 0 30px;color:var(--forest-text-soft)}
+.counter-band .btn-primary{color:var(--forest-text);border-color:var(--forest-text-dim)}
+.counter-band .btn-primary:hover{background:var(--terracotta);color:#fff;border-color:var(--terracotta)}
 .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1180px;margin:0 auto}
 .quote-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px}
 .quote-card p{font-family:Petrona,serif;font-style:italic;font-size:17px;line-height:1.55;margin:0 0 16px;color:var(--ink)}
